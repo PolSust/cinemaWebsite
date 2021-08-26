@@ -4,8 +4,8 @@ namespace App\Entities;
 
 class Room
 {
-    public int $room_id;
-    public int $room_number;
+    public $room_id;
+    public $room_number;
 
     /**
      * Get the value of room_id
@@ -37,6 +37,20 @@ class Room
     public function setRoomNumber(int $room_number)
     {
         $this->room_number = $room_number;
+
+        return $this;
+    }
+
+    /**
+     * Set the value of room_id
+     *
+     * @param  int  $room_id
+     *
+     * @return  self
+     */
+    public function setRoomId(int $room_id)
+    {
+        $this->room_id = $room_id;
 
         return $this;
     }

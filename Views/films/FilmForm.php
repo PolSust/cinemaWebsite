@@ -9,14 +9,6 @@
     die();
 endif; ?>
 
-<?php
-
-// var_dump($film);
-if ($film->getFilmTitle() == null) {
-}
-
-?>
-
 <form class="row g-3" method="POST" enctype="multipart/form-data">
     <!-- hidden input for id on the update -->
     <input type="text" name="filmId" value="<?= $film->getFilmId() ?>" hidden>

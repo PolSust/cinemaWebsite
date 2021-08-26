@@ -30,7 +30,13 @@ class FilmModel extends DbConnect
 
         $result  = $this->connection->query($this->request);
 
-        $list = $result->fetchAll();
+        $films = $result->fetchAll();
+
+        $list = [];
+        foreach ($films as $film) {
+            array_push($list, $this->createFilmObj($film));
+        }
+
         return $list;
     }
 

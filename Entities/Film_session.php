@@ -6,8 +6,10 @@ use DateTime;
 
 class Film_session
 {
-    private int $session_id;
-    private DateTime $session_dateTime;
+    private $session_id;
+    private $session_dateTime;
+    private $room_id;
+    private $film_id;
 
     /**
      * Get the value of session_id
@@ -22,7 +24,7 @@ class Film_session
     /**
      * Get the value of session_dateTime
      *
-     * @return  DateTime
+     * @return  string
      */
     public function getSessionDateTime()
     {
@@ -36,9 +38,49 @@ class Film_session
      *
      * @return  self
      */
-    public function setSessionDateTime(DateTime $session_dateTime)
+    public function setSessionDateTime($session_dateTime)
     {
         $this->session_dateTime = $session_dateTime;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of room_id
+     */
+    public function getRoomId()
+    {
+        return $this->room_id;
+    }
+
+    /**
+     * Set the value of room_id
+     *
+     * @return  self
+     */
+    public function setRoomId($room_id)
+    {
+        $this->room_id = $room_id;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of film_id
+     */
+    public function getFilmId()
+    {
+        return $this->film_id;
+    }
+
+    /**
+     * Set the value of film_id
+     *
+     * @return  self
+     */
+    public function setFilmId($film_id)
+    {
+        $this->film_id = $film_id;
 
         return $this;
     }

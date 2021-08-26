@@ -7,13 +7,15 @@ use App\Models\FilmModel;
 
 class FilmsController extends Controller
 {
+
     public function filmList()
     {
         $filmMod = new FilmModel();
 
         $films = $filmMod->getAllFilms();
 
-        $this->render('films/filmList', ['films' => $films, "isAdmin" => $_SESSION['user']->getUserIsAdmin()]);
+        // if (!isset($_SESSION['user']))  return;
+        $this->render('films/filmList', ['films' => $films, "isAdmin" => $_SESSION['user'] !== null ? $_SESSION['user']->getUserIsAdmin() : false]);
     }
 
     public function filmDetails($id)
@@ -23,7 +25,7 @@ class FilmsController extends Controller
         $filmMod = new FilmModel();
         $film = $filmMod->getFilmById($id);
 
-        $this->render('films/filmDetails', ['film' => $film, "isAdmin" => $_SESSION['user']->getUserIsAdmin()]);
+        $this->render('films/filmDetails', ['film' => $film, "isAdmin" => $_SESSION['user'] !== null ? $_SESSION['user']->getUserIsAdmin() : false]);
     }
 
     public function filmCreate()
@@ -48,7 +50,7 @@ class FilmsController extends Controller
         }
 
 
-        $this->render('films/filmForm', ["film" => $film, "isAdmin" => $_SESSION['user']->getUserIsAdmin(), "error" => $error, "success" => $success, "mode" => "Creation"]);
+        $this->render('films/filmForm', ["film" => $film, "isAdmin" => $_SESSION['user'] !== null ? $_SESSION['user']->getUserIsAdmin() : false, "error" => $error, "success" => $success, "mode" => "Creation"]);
     }
 
     public function filmUpdate($id)
@@ -82,7 +84,7 @@ class FilmsController extends Controller
         }
 
 
-        $this->render('films/filmForm', ["film" => $film, "isAdmin" => $_SESSION['user']->getUserIsAdmin(), "error" => $error, "success" => $success, "mode" => "Update"]);
+        $this->render('films/filmForm', ["film" => $film, "isAdmin" => $_SESSION['user'] !== null ? $_SESSION['user']->getUserIsAdmin() : false, "error" => $error, "success" => $success, "mode" => "Update"]);
     }
     public function filmDelete($id)
     {
@@ -99,7 +101,7 @@ class FilmsController extends Controller
         }
 
 
-        $this->render('films/filmDeleteForm', ['film' => $film, "isAdmin" => $_SESSION['user']->getUserIsAdmin()]);
+        $this->render('films/filmDeleteForm', ['film' => $film, "isAdmin" => $_SESSION['user'] !== null ? $_SESSION['user']->getUserIsAdmin() : false]);
     }
 
     private function createFilmObj($picture): Film

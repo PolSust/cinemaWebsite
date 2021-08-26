@@ -23,7 +23,13 @@ class RoomModel extends DbConnect
 
         $result  = $this->connection->query($this->request);
 
-        $list = $result->fetchAll();
+        $rooms = $result->fetchAll();
+
+        $list = [];
+        foreach ($rooms as $room) {
+            array_push($list, $this->createRoomObj($room));
+        }
+
         return $list;
     }
 
@@ -41,5 +47,15 @@ class RoomModel extends DbConnect
         $this->request = $this->connection->prepare("DELETE FROM $this->table WHERE room_id = :room_id");
         $this->request->bindValue(':room_id', $roomId);
         return $this->request->execute();
+    }
+
+    private function createRoomObj($resultRoom): Room
+    {
+        $room = new Room();
+
+        $room->setRoomId($resultRoom->room_id);
+        $room->setRoomNumber($resultRoom->room_number);
+
+        return $room;
     }
 }

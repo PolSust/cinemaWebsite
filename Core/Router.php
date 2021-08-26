@@ -25,7 +25,7 @@ class Router
             (isset($_POST)) ? call_user_func_array([$controller, $action], $_POST) : $controller->$action();
         } else {
             http_response_code(404);
-            echo "La page recherche n'existe pas";
+            echo "<h1>La page recherche n'existe pas</h1>";
         }
     }
 
@@ -34,7 +34,7 @@ class Router
         // return;
 
         //if the page is the film list just return
-        if ($controller instanceof FilmsController &&  $action == 'filmList') return false;
+        if ($controller instanceof FilmsController && $action == 'filmList') return false;
 
 
         if (!isset($_SESSION["user"]) && !$controller instanceof UsersController) {
