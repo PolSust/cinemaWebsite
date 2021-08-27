@@ -40,7 +40,7 @@ class FilmModel extends DbConnect
         return $list;
     }
 
-    public function getFilmById(int $filmId): Film
+    public function getFilmById($filmId): Film
     {
         $this->request = $this->connection->prepare("SELECT * FROM films WHERE film_id = :film_id");
         $this->request->bindValue(':film_id', $filmId);
@@ -68,7 +68,7 @@ class FilmModel extends DbConnect
         return $this->request->execute();
     }
 
-    public function deleteFilmById(int $filmId)
+    public function deleteFilmById($filmId)
     {
         $this->request = $this->connection->prepare("DELETE FROM $this->table WHERE film_id = :film_id");
         $this->request->bindValue(':film_id', $filmId);

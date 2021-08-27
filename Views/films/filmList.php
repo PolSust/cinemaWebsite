@@ -20,9 +20,9 @@
 
         $shortDescription = substr($film->getFilmDescription(), 0, 100)
     ?>
-        <div class="card" style="width: 18rem;">
+        <div class="card m-1" style="width: 22rem;">
             <div class="position-relative">
-                <img src="<?= $film->getFilmPicture() ?>" class="card-img-top" alt="<?= $film->getFilmTitle() ?>">
+                <img src="<?= $film->getFilmPicture() ?>" class="card-img-top img-fluid" alt="<?= $film->getFilmTitle() ?>">
 
                 <?php
                 if ($isAdmin) {
@@ -59,10 +59,12 @@
                     <p class="card-text"><?= $shortDescription ?>...</p>
                 </div>
 
-                <div class="col-4 text-warning"><i class="fas fa-star m-2"></i><?= $film->getFilmRating() ?></div>
+                <div class="col-4 ">
+                    <p class="text-warning"><i class="fas fa-star m-2"></i><?= $film->getFilmRating() ?></p>
+                    <p class="text-secondary"><i class="fas fa-clock"></i> <?= $film->getFilmLengthMin() ?> min.</p>
+                </div>
             </div>
         </div>
-
     <?php
     }
     ?>

@@ -3,7 +3,9 @@
 namespace App\Controllers;
 
 use App\Entities\Film;
+use App\Models\Film_sessionModel;
 use App\Models\FilmModel;
+use App\Models\Sessions_users_Model;
 
 class FilmsController extends Controller
 {
@@ -20,12 +22,61 @@ class FilmsController extends Controller
 
     public function filmDetails($id)
     {
-        $id = intval($id);
+        $success = "";
+        $error = "";
+        $film = new Film();
 
-        $filmMod = new FilmModel();
-        $film = $filmMod->getFilmById($id);
+        $sortedSessions = [];
 
-        $this->render('films/filmDetails', ['film' => $film, "isAdmin" => $_SESSION['user'] !== null ? $_SESSION['user']->getUserIsAdmin() : false]);
+        if (isset($_POST["submited"])) {
+            $sessionsUsersMod = new Sessions_users_Model();
+
+            $added = $sessionsUsersMod->addNewSessionReservation($_SESSION["user"]->getUserId(), $_POST["session_id"]);
+
+            if ($added) {
+                header("Location: index.php?controller=films&action=filmList");
+            } else {
+                $error = "You alredy have a ticket for this session";
+            }
+        } else {
+            $sessionsUsersMod = new Sessions_users_Model();
+
+            $userReservedSessions = $sessionsUsersMod->getUserSessions($_SESSION["user"]->getUserId());
+
+            $filmMod = new FilmModel();
+            $film = $filmMod->getFilmById($id);
+
+
+            $sessionsMod = new Film_sessionModel();
+            $sessions = $sessionsMod->getAllSessionsByFilmId($id);
+
+            foreach ($sessions as $session) {
+                $date = $session->getSessionDateTime();
+
+                $date = explode(" ", $date);
+                $date = $date[0];
+
+                if (!in_array($date, $sortedSessions)) {
+
+                    $sortedSessions[$date] = [];
+                }
+            }
+
+            foreach ($sessions as $session) {
+                $date = $session->getSessionDateTime();
+
+                $date = explode(" ", $date);
+                $date = $date[0];
+
+
+                if (isset($sortedSessions[$date])) {
+                    array_push($sortedSessions[$date], $session);
+                }
+            }
+        }
+
+
+        $this->render('films/filmDetails', ["userReservedSessions" => $userReservedSessions, "error" => $error, "success" => $success, "sessionDates" => $sortedSessions, 'film' => $film, "isAdmin" => $_SESSION['user'] !== null ? $_SESSION['user']->getUserIsAdmin() : false]);
     }
 
     public function filmCreate()

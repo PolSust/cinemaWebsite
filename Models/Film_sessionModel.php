@@ -26,7 +26,31 @@ class Film_sessionModel extends DbConnect
         $result  = $this->connection->query($this->request);
 
         $list = $result->fetchAll();
-        return $list;
+
+        $sessions = [];
+
+        foreach ($list as $session) {
+            array_push($sessions, $this->createSessionObject($session));
+        }
+
+        return $sessions;
+    }
+
+    public function getAllSessionsByFilmId($film_id)
+    {
+        $this->request = "SELECT * FROM $this->table WHERE film_id=" . $film_id;
+
+        $result = $this->connection->query($this->request);
+
+        $list = $result->fetchAll();
+
+        $sessions = [];
+
+        foreach ($list as $session) {
+            array_push($sessions, $this->createSessionObject($session));
+        }
+
+        return $sessions;
     }
 
     public function updateSession(Film_session $session)
@@ -42,5 +66,17 @@ class Film_sessionModel extends DbConnect
         $this->request = $this->connection->prepare("DELETE FROM $this->table WHERE session_id = :session_id");
         $this->request->bindValue(':session_id', $id);
         return $this->request->execute();
+    }
+
+    private function createSessionObject($resultSession): Film_session
+    {
+        $session = new Film_session();
+
+        $session->setSessionId($resultSession->session_id);
+        $session->setSessionDateTime($resultSession->session_dateTime);
+        $session->setFilmId($resultSession->film_id);
+        $session->setRoomId($resultSession->room_id);
+
+        return $session;
     }
 }

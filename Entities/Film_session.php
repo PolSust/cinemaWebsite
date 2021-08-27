@@ -84,4 +84,16 @@ class Film_session
 
         return $this;
     }
+
+    /**
+     * Set the value of session_id
+     *
+     * @return  self
+     */
+    public function setSessionId($session_id)
+    {
+        $this->session_id = $session_id;
+
+        return $this;
+    }
 }

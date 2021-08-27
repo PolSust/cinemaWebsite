@@ -4,6 +4,7 @@ namespace App\Core;
 
 use App\Controllers\FilmsController;
 use App\Controllers\UsersController;
+use App\Entities\User;
 
 class Router
 {
@@ -31,13 +32,16 @@ class Router
 
     private function guard($controller, $action)
     {
+        if (!isset($_SESSION['user'])) {
+            $_SESSION["user"] = new User();
+        }
         // return;
 
         //if the page is the film list just return
         if ($controller instanceof FilmsController && $action == 'filmList') return false;
 
 
-        if (!isset($_SESSION["user"]) && !$controller instanceof UsersController) {
+        if ($_SESSION["user"]->getUserId() == null && !$controller instanceof UsersController) {
 
             $controller = 'Users';
             $controller = "\\App\\Controllers\\" . $controller . "Controller";

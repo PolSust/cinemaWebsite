@@ -73,7 +73,7 @@ class UsersController extends Controller
                 if ($userModel->createUser($user)) {
 
                     $_SESSION['user'] = $user;
-                    
+
                     header("Location: index.php?controller=films&action=filmList");
                     return;
                 }
@@ -82,5 +82,10 @@ class UsersController extends Controller
         }
 
         $this->render('users/signup', ["error" => $error], "usersAuth");
+    }
+    public function signOut()
+    {
+        session_destroy();
+        header("Location: index.php");
     }
 }

@@ -1,16 +1,1 @@
-reserver place de cinema, acheter un billet de cinema
-besoin de s'authentifier pour acheter le billet
-
-page d'accueil avec liste de films
-
-un button reservation per film qui nous permet d'acceder a un nouvelle page
-
-ce page nous propose les differentes sceances et tarifs
-possiblité de choisir le jour aussi
-le film poura être dispo sur 1 ou plusieurs salles
-
 envoyer un mail avec les infos de la reservations
-
-crud form pour l'admin
-
-tous les infos seront en base de donnés
