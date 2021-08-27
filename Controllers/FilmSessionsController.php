@@ -6,7 +6,6 @@ use App\Entities\Film_session;
 use App\Models\Film_sessionModel;
 use App\Models\FilmModel;
 use App\Models\RoomModel;
-use App\Models\Sessions_users_Model;
 
 class FilmSessionsController extends Controller
 {
@@ -39,8 +38,8 @@ class FilmSessionsController extends Controller
 
     public function bookedSessions()
     {
-        $session_userMod = new Sessions_users_Model();
-        $sessions = $session_userMod->getUserSessions($_SESSION["user"]->getUserId());
+        $session_userMod = new Film_sessionModel();
+        $sessions = $session_userMod->getAllSessionsByUserId($_SESSION["user"]->getUserId());
 
         $this->render('sessions/bookedSessions', ["sessions" => $sessions, "isAdmin" => $_SESSION['user'] !== null ? $_SESSION['user']->getUserIsAdmin() : false]);
     }

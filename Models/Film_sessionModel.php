@@ -52,6 +52,37 @@ class Film_sessionModel extends DbConnect
 
         return $sessions;
     }
+    public function getAllSessionsByUserId($user_id)
+    {
+        $this->request = $this->connection->prepare(
+            "SELECT film_sessions.session_dateTime , rooms.*, films.* FROM film_sessions 
+            INNER JOIN rooms ON rooms.room_id = film_sessions.room_id 
+            INNER JOIN films ON films.film_id = film_sessions.film_id
+            INNER JOIN appartenir_users_sessions ON appartenir_users_sessions.session_id = film_sessions.session_id AND appartenir_users_sessions.user_id = :user_id"
+        );
+
+        $this->request->bindValue(':user_id', $user_id);
+
+        //SELECT jeuvideo.id_jeuvideo, jeuvideo.nom as nomJeux, jeuvideo.date_de_sortie, jeuvideo.jaquette, console.nom as nomCons FROM jeuvideo 
+        //INNER JOIN jv_console ON jeuvideo.id_jeuvideo = jv_console.id_jeuxvideo 
+        //INNER JOIN console ON console.id_console = jv_console.id_console 
+        //INNER JOIN utilisateur_jv ON utilisateur_jv.id_jeuvideo = jeuvideo.id_jeuvideo 
+        //INNER JOIN utilisateur on utilisateur.id_utilisateur = utilisateur_jv.id_utilisateur 
+        //WHERE utilisateur.id_utilisateur = :id"
+
+        $this->request->execute();
+
+        $list = $this->request->fetchAll();
+        // var_dump($list);
+
+        // $sessions = [];
+
+        // foreach ($list as $session) {
+        //     array_push($sessions, $this->createSessionObject($session));
+        // }
+
+        return $list;
+    }
 
     public function updateSession(Film_session $session)
     {

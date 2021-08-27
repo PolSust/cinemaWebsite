@@ -46,8 +46,6 @@
                 }
                 ?>
 
-
-
                 <form action="index.php?controller=films&action=filmDetails" method="POST">
                     <button type="submit" name="id" value="<?= $film->getFilmId() ?>" class="btn btn-primary position-absolute bottom-0 end-0">Reserver <i class="fas fa-ticket-alt"></i></button>
                 </form>

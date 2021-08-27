@@ -1,1 +1,0 @@
-envoyer un mail avec les infos de la reservations
