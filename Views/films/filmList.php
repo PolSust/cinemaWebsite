@@ -1,26 +1,24 @@
 <?php $pageTitle = "Cinema - liste" ?>
 <?php $title = "Les films en carte" ?>
 
-<?php if ($isAdmin) : ?>
-    <div class="container d-flex justify-content-between">
-        <a href="index.php?controller=films&action=filmCreate" class="btn btn-primary">
-            <p class="text-center">Add a new film <i class="fas fa-film"></i></p>
-        </a>
-
-        <a href="index.php?controller=filmSessions&action=sessionCreate" class="btn btn-primary">
-            <p class="text-center">Add a new session <i class="far fa-clock"></i></p>
-        </a>
-    </div>
-<?php endif; ?>
-
-
 <div class="container-fluid d-flex flex-wrap justify-content-center">
+    <?php if ($isAdmin) : ?>
+        <div class="container d-flex justify-content-between">
+            <a href="index.php?controller=films&action=filmCreate" class="btn btn-primary d-flex align-items-center">
+                <span class="text-center">Add a new film <i class="fas fa-film"></i></span>
+            </a>
+
+            <a href="index.php?controller=filmSessions&action=sessionCreate" class="btn btn-primary d-flex align-items-center">
+                <span class="text-center">Add a new session <i class="far fa-clock"></i></span>
+            </a>
+        </div>
+    <?php endif; ?>
     <?php
     foreach ($films as $film) {
 
         $shortDescription = substr($film->getFilmDescription(), 0, 100)
     ?>
-        <div class="card m-1" style="width: 22rem;">
+        <div class="card m-1 border-0" style="width: 22rem;">
             <div class="position-relative">
                 <img src="<?= $film->getFilmPicture() ?>" class="card-img-top img-fluid" alt="<?= $film->getFilmTitle() ?>">
 
@@ -50,7 +48,7 @@
                     <button type="submit" name="id" value="<?= $film->getFilmId() ?>" class="btn btn-primary position-absolute bottom-0 end-0">Reserver <i class="fas fa-ticket-alt"></i></button>
                 </form>
             </div>
-            <div class="card-body row">
+            <div class="card-body row text-secondary">
 
                 <div class="col-8">
                     <h5 class="card-title"><?= $film->getFilmTitle() ?></h5>

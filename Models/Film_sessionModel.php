@@ -63,23 +63,9 @@ class Film_sessionModel extends DbConnect
 
         $this->request->bindValue(':user_id', $user_id);
 
-        //SELECT jeuvideo.id_jeuvideo, jeuvideo.nom as nomJeux, jeuvideo.date_de_sortie, jeuvideo.jaquette, console.nom as nomCons FROM jeuvideo 
-        //INNER JOIN jv_console ON jeuvideo.id_jeuvideo = jv_console.id_jeuxvideo 
-        //INNER JOIN console ON console.id_console = jv_console.id_console 
-        //INNER JOIN utilisateur_jv ON utilisateur_jv.id_jeuvideo = jeuvideo.id_jeuvideo 
-        //INNER JOIN utilisateur on utilisateur.id_utilisateur = utilisateur_jv.id_utilisateur 
-        //WHERE utilisateur.id_utilisateur = :id"
-
         $this->request->execute();
 
         $list = $this->request->fetchAll();
-        // var_dump($list);
-
-        // $sessions = [];
-
-        // foreach ($list as $session) {
-        //     array_push($sessions, $this->createSessionObject($session));
-        // }
 
         return $list;
     }

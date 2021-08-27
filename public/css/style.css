@@ -1,0 +1,18 @@
+img {
+	max-width: 100%;
+}
+
+body {
+	background-color: #15202b;
+	color: #fff;
+}
+
+.bg-darkBlue {
+	background-color: #1d3a42;
+}
+
+.theNav {
+	position: absolute;
+	top: 25px;
+	right: 0;
+}

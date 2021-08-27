@@ -67,6 +67,9 @@ class UsersController extends Controller
             $userModel = new UserModel();
 
             $exists = $userModel->getUserByEmail($user->getUserEmail());
+                    
+
+
             if ($exists) {
                 $error = "It alredy exists an account using this email";
             } else {

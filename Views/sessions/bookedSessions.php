@@ -3,12 +3,12 @@
 
 <a href="index.php?controller=films&action=filmList" class="btn btn-primary"><i class="fas fa-arrow-left"></i> Go back</a>
 
-<div class="container col-5">
+<div class="container col-10 d-flex flex-wrap">
     <?php
     // var_dump($sessions);
     foreach ($sessions as $session) {
     ?>
-        <div class="card p-2 m-2">
+        <div class="card p-2 m-2 text-black col-5">
             <div class="card-body d-flex">
                 <div class="col-10">
                     <p><b><?= $session->film_title ?></b></p>
@@ -20,8 +20,6 @@
                 </div>
             </div>
         </div>
-
-
 
     <?php
     }
