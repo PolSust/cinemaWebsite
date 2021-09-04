@@ -1,3 +1,2 @@
 <?php
-
-include "public/index.php";
+header("location: public/index.php");
