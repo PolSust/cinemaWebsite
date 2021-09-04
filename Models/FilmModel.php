@@ -52,7 +52,15 @@ class FilmModel extends DbConnect
         return $this->createFilmObj($result);
     }
 
-    public function updateFilm(Film $film)
+    /**
+     *
+     * Update a film on the database
+     *
+     * @param Film  $object The film to update
+     * @return bool
+     *
+     */
+    public function updateFilm(Film $film): bool
     {
         $this->request = $this->connection->prepare("UPDATE $this->table SET film_title = :film_title,
          film_description = :film_description, film_picture = :film_picture, film_lengthMin = :film_lengthMin,

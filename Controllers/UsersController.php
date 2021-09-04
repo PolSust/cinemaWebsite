@@ -11,13 +11,11 @@ class UsersController extends Controller
     {
         $error = "";
 
-        if (isset($_POST['submited'])) {
-
-
+        if (isset($_POST["submited"])) {
             $user = new User();
 
-            $user->setUserEmail($_POST['email']);
-            $user->setUserPassword($_POST['password']);
+            $user->setUserEmail($_POST["email"]);
+            $user->setUserPassword($_POST["password"]);
 
             $userModel = new UserModel();
 
@@ -32,12 +30,18 @@ class UsersController extends Controller
                 $theUser->setUserEmail($databaseUser->user_email);
                 $theUser->setUserPassword($databaseUser->user_password);
 
-                if (password_verify($user->getUserPassword(), $theUser->getUserPassword())) {
-
+                if (
+                    password_verify(
+                        $user->getUserPassword(),
+                        $theUser->getUserPassword()
+                    )
+                ) {
                     $theUser->setUserPassword("");
-                    $_SESSION['user'] = $theUser;
+                    $_SESSION["user"] = $theUser;
 
-                    header("Location: index.php?controller=films&action=filmList");
+                    header(
+                        "Location: index.php?controller=films&action=filmList"
+                    );
                 } else {
                     $error = "Wrong credentials";
                 }
@@ -46,45 +50,43 @@ class UsersController extends Controller
             }
         }
 
-
-        $this->render('users/login', ["error" => $error], "usersAuth");
+        $this->render("users/login", ["error" => $error], "usersAuth");
     }
     public function signup()
     {
         $error = "";
 
-        if (isset($_POST['submited'])) {
+        if (isset($_POST["submited"])) {
             $user = new User();
 
             var_dump($_POST);
             $user->setUserIsAdmin(false);
-            $user->setUserUsername($_POST['username']);
-            $user->setUserEmail($_POST['email']);
+            $user->setUserUsername($_POST["username"]);
+            $user->setUserEmail($_POST["email"]);
 
-            $hsdPassword = password_hash($_POST['password'], PASSWORD_DEFAULT);
+            $hsdPassword = password_hash($_POST["password"], PASSWORD_DEFAULT);
             $user->setUserPassword($hsdPassword);
 
             $userModel = new UserModel();
 
             $exists = $userModel->getUserByEmail($user->getUserEmail());
-                    
-
 
             if ($exists) {
                 $error = "It alredy exists an account using this email";
             } else {
                 if ($userModel->createUser($user)) {
+                    $_SESSION["user"] = $user;
 
-                    $_SESSION['user'] = $user;
-
-                    header("Location: index.php?controller=films&action=filmList");
+                    header(
+                        "Location: index.php?controller=films&action=filmList"
+                    );
                     return;
                 }
                 $error = "Error creating user";
             }
         }
 
-        $this->render('users/signup', ["error" => $error], "usersAuth");
+        $this->render("users/signup", ["error" => $error], "usersAuth");
     }
     public function signOut()
     {

@@ -1,13 +1,12 @@
 <?php
-include "components/head.php"
-?>
+include "components/head.php"; ?>
 
 <body>
     <div class="container">
 
-        <header>
-            <h1 class="text-center"><?= $title ?></h1>
-        </header>
+        </ />
+        <h1 class="text-center"><?= $title ?></h1>
+        </ / />
 
         <main><?= $content ?></main>
 
