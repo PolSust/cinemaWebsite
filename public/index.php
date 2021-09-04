@@ -3,7 +3,7 @@
 use App\Autoloader;
 use App\Core\Router;
 
-include '../Autoloader.php';
+include "Autoloader.php";
 Autoloader::register();
 
 $route = new Router();
