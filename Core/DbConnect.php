@@ -7,10 +7,15 @@ use PDO;
 
 class DbConnect
 {
-    const SERVER = "sqlprive-pc2372-001.privatesql.ha.ovh.net:3306";
-    const USER = "cefiidev1149";
-    const PASSWORD = "iGgUk529";
-    const BASE = "cefiidev1149";
+    // const SERVER = "sqlprive-pc2372-001.privatesql.ha.ovh.net:3306";
+    // const USER = "cefiidev1149";
+    // const PASSWORD = "iGgUk529";
+    // const BASE = "cefiidev1149";
+
+    const SERVER = "localhost";
+    const USER = "root";
+    const PASSWORD = "";
+    const BASE = "movie_theater";
 
     protected $connection;
     protected $request;
